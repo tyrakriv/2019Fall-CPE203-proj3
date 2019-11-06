@@ -15,7 +15,7 @@ public class AnimationAction implements Action{
 
     public void executeAction(EventScheduler scheduler)
     {
-        entity.nextImage();
+        ((AnimationEntity)entity).nextImage();
 
         if (repeatCount != 1)
         {

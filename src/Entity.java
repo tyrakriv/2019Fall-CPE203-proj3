@@ -19,7 +19,6 @@ public abstract class Entity {
         this.imageIndex = 0;
     }
 
-
     public Point getPosition() {
         return position;
 
@@ -32,11 +31,6 @@ public abstract class Entity {
     public int getImageIndex() { return imageIndex; }
 
     public String getId() { return id; }
-
-    public void nextImage()
-    {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
 
     public PImage getCurrentImage()
     {
