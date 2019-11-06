@@ -7,8 +7,10 @@ public abstract class AnimationEntity extends ActivityEntity{
     private final int animationPeriod;
     private int imageIndex;
 
-    public AnimationEntity(String id, Point position, List<PImage> images, int resourceLimit, int actionPeriod, int resourceCount, int animationPeriod) {
-        super(id, position, images, resourceLimit, actionPeriod, resourceCount);
+    //moveable entity (next position and move to) -- moveable extends animationentity * and octo entity (transform) -- octo extends move
+
+    public AnimationEntity(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
+        super(id, position, images, actionPeriod);
         this.animationPeriod = animationPeriod;
         this.imageIndex = 0;
     }
@@ -18,7 +20,10 @@ public abstract class AnimationEntity extends ActivityEntity{
     }
     public int getImageIndex() { return imageIndex; }
 
-    public abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
+    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
+        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), getActionPeriod());
+        scheduler.scheduleEvent(this, new AnimationAction(this, 0), getAnimationPeriod());
+    }
 
     public void nextImage()
     {

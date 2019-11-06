@@ -15,7 +15,7 @@ public class Sgrass extends ActivityEntity{
     public Sgrass(String id, Point position,
                     List<PImage> images, int actionPeriod)
     {
-        super(id, position, images, 0, actionPeriod, 0);
+        super(id, position, images, actionPeriod);
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
@@ -34,10 +34,5 @@ public class Sgrass extends ActivityEntity{
         scheduler.scheduleEvent(this,
                 new ActivityAction(this, world, imageStore),
                 this.getActionPeriod());
-    }
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
-        scheduler.scheduleEvent(this,
-                new ActivityAction(this, world, imageStore),
-                getActionPeriod());
     }
 }

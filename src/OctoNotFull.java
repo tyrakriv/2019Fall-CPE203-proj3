@@ -5,12 +5,25 @@ import java.util.Optional;
 
 public class OctoNotFull extends AnimationEntity {
 
+    private int resourceLimit;
+    private int resourceCount;
+
     public OctoNotFull(String id, int resourceLimit,
                     Point position, int actionPeriod, int animationPeriod, List<PImage> images)
-
-
     {
-        super(id, position, images, resourceLimit, actionPeriod, 0, animationPeriod);
+        super(id, position, images, actionPeriod, animationPeriod);
+        this.resourceCount = resourceCount;
+        this.resourceLimit = resourceLimit;
+    }
+
+    public int getResourceLimit() { return resourceLimit; }
+
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    public void setResourceCount(int resourceCount) {
+        this.resourceCount = resourceCount;
     }
 
     public Point nextPositionOcto(WorldModel world, Point destPos)
@@ -46,10 +59,7 @@ public class OctoNotFull extends AnimationEntity {
                     this.getActionPeriod());
         }
     }
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
-        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), getActionPeriod());
-        scheduler.scheduleEvent(this, new AnimationAction(this, 0), getAnimationPeriod());
-    }
+
     public boolean transformNotFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         if (this.getResourceCount() >= this.getResourceLimit()) {
             OctoFull octo = new OctoFull(this.getId(), this.getPosition(), this.getImages(),

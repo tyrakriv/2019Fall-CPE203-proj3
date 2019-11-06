@@ -13,7 +13,7 @@ public class Fish extends ActivityEntity{
     public static final Random rand = new Random();
 
     public Fish(String id, Point position, int actionPeriod, List<PImage> images) {
-        super(id, position, images, 0, actionPeriod, 0);
+        super(id, position, images, actionPeriod);
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
@@ -31,10 +31,5 @@ public class Fish extends ActivityEntity{
 
         world.addEntity(crab);
         ((ActivityEntity)crab).scheduleActions(scheduler, world, imageStore);
-    }
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
-        scheduler.scheduleEvent(this,
-                new ActivityAction(this, world, imageStore),
-                getActionPeriod());
     }
 }

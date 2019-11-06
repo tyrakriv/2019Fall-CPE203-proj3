@@ -10,7 +10,7 @@ public class Crab extends AnimationEntity{
     public Crab(String id, Point position,
                   int actionPeriod, int animationPeriod, List<PImage> images)
     {
-        super(id, position, images, 0, actionPeriod, 0, animationPeriod);
+        super(id, position, images, actionPeriod, animationPeriod);
     }
 
     public Point nextPositionCrab(WorldModel world, Point destPos)
@@ -57,13 +57,5 @@ public class Crab extends AnimationEntity{
         }
         scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),
                 nextPeriod);
-    }
-
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
-        scheduler.scheduleEvent(this,
-                new ActivityAction(this, world, imageStore),
-                getActionPeriod());
-        scheduler.scheduleEvent(this,
-                new AnimationAction(this, 0), getAnimationPeriod());
     }
 }

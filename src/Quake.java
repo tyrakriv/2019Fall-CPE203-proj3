@@ -11,7 +11,7 @@ public class Quake extends AnimationEntity{
 
     public Quake(Point position, List<PImage> images)
     {
-        super(QUAKE_ID, position, images, 0, QUAKE_ACTION_PERIOD, 0, QUAKE_ANIMATION_PERIOD);
+        super(QUAKE_ID, position, images, QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
 
     }
 
@@ -24,7 +24,7 @@ public class Quake extends AnimationEntity{
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
         scheduler.scheduleEvent(this,
                 new ActivityAction(this, world, imageStore),
-                getActionPeriod());
+                QUAKE_ACTION_PERIOD);
         scheduler.scheduleEvent(this,
                 new AnimationAction(this, QUAKE_ANIMATION_REPEAT_COUNT), getAnimationPeriod());
     }

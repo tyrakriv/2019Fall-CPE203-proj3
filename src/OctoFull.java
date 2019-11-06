@@ -6,11 +6,26 @@ import java.util.Optional;
 
 public class OctoFull extends AnimationEntity{
 
+    private int resourceLimit;
+    private int resourceCount;
+
     public OctoFull(String id, Point position,
                   List<PImage> images, int resourceLimit, int resourceCount,
                   int actionPeriod) {
-        super(id, position, images, resourceLimit, actionPeriod, resourceCount, 0);
+        super(id, position, images, actionPeriod, 0);
+        this.resourceCount = resourceCount;
+        this.resourceLimit = resourceLimit;
 
+    }
+
+    public int getResourceLimit() { return resourceLimit; }
+
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    public void setResourceCount(int resourceCount) {
+        this.resourceCount = resourceCount;
     }
 
     public Point nextPositionOcto(WorldModel world, Point destPos)
@@ -63,10 +78,5 @@ public class OctoFull extends AnimationEntity{
 
         world.addEntity(octo);
         ((ActivityEntity)octo).scheduleActions(scheduler, world, imageStore);
-    }
-
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
-        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), getActionPeriod());
-        scheduler.scheduleEvent(this, new AnimationAction(this, 0), (getAnimationPeriod()));
     }
 }
