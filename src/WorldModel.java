@@ -142,7 +142,7 @@ final class WorldModel{
       }
    }
 
-   private void moveEntity(Entity entity, Point pos) {
+   public void moveEntity(Entity entity, Point pos) {
       Point oldPos = entity.getPosition();
       if (withinBounds(pos) && !pos.equals(oldPos)) {
          setOccupancyCell(oldPos, null);
@@ -172,29 +172,29 @@ final class WorldModel{
       }
    }
 
-   public boolean moveToNotFull(Entity octo, Entity target, EventScheduler scheduler) {
-      if (octo.getPosition().adjacent(target.getPosition())) {
-         octo.setResourceCount(octo.getResourceCount() + 1);
-         target.removeEntity(this, target);
-         scheduler.unscheduleAllEvents(target);
-
-         return true;
-      } else {
-         if (octo instanceof OctoNotFull) {
-            Point nextPos = ((OctoNotFull)octo).nextPositionOcto(this, target.getPosition());
-
-            if (!octo.getPosition().equals(nextPos)) {
-               Optional<Entity> occupant = getOccupant(nextPos);
-               if (occupant.isPresent()) {
-                  scheduler.unscheduleAllEvents(occupant.get());
-               }
-
-               moveEntity(octo, nextPos);
-            }
-         }
-         return false;
-      }
-   }
+//   public boolean moveToNotFull(Entity octo, Entity target, EventScheduler scheduler) {
+//      if (octo.getPosition().adjacent(target.getPosition())) {
+//         octo.setResourceCount(octo.getResourceCount() + 1);
+//         target.removeEntity(this, target);
+//         scheduler.unscheduleAllEvents(target);
+//
+//         return true;
+//      } else {
+//         if (octo instanceof OctoNotFull) {
+//            Point nextPos = ((OctoNotFull)octo).nextPositionOcto(this, target.getPosition());
+//
+//            if (!octo.getPosition().equals(nextPos)) {
+//               Optional<Entity> occupant = getOccupant(nextPos);
+//               if (occupant.isPresent()) {
+//                  scheduler.unscheduleAllEvents(occupant.get());
+//               }
+//
+//               moveEntity(octo, nextPos);
+//            }
+//         }
+//         return false;
+//      }
+//   }
 
    public boolean moveToCrab(Crab crab, Entity target, EventScheduler scheduler) {
       if (crab.getPosition().adjacent(target.getPosition())) {
@@ -226,34 +226,34 @@ final class WorldModel{
    }
 
 
-   public void transformFull(Entity entity, EventScheduler scheduler, ImageStore imageStore) {
-      OctoNotFull octo = new OctoNotFull(entity.getId(), entity.getResourceLimit(),
-              entity.getPosition(), entity.getActionPeriod(), ((AnimationEntity)entity).getAnimationPeriod(),
-              entity.getImages());
+//   public void transformFull(Entity entity, EventScheduler scheduler, ImageStore imageStore) {
+//      OctoNotFull octo = new OctoNotFull(entity.getId(), entity.getResourceLimit(),
+//              entity.getPosition(), entity.getActionPeriod(), ((AnimationEntity)entity).getAnimationPeriod(),
+//              entity.getImages());
+//
+//      entity.removeEntity(this, entity);
+//      scheduler.unscheduleAllEvents(entity);
+//
+//      addEntity(octo);
+//      ((ActivityEntity)octo).scheduleActions(scheduler, this, imageStore);
+//   }
 
-      entity.removeEntity(this, entity);
-      scheduler.unscheduleAllEvents(entity);
-
-      addEntity(octo);
-      ((ActivityEntity)octo).scheduleActions(scheduler, this, imageStore);
-   }
-
-   public boolean transformNotFull(Entity entity, EventScheduler scheduler, ImageStore imageStore) {
-      if (entity.getResourceCount() >= entity.getResourceLimit()) {
-         OctoFull octo = new OctoFull(entity.getId(), entity.getPosition(), entity.getImages(),
-                 entity.getResourceLimit(), entity.getResourceLimit(), entity.getActionPeriod(), ((AnimationEntity)entity).getAnimationPeriod()); // two resource limits?
-
-         entity.removeEntity(this, entity);
-         scheduler.unscheduleAllEvents(entity);
-
-         addEntity(octo);
-         ((ActivityEntity)octo).scheduleActions(scheduler, this, imageStore);
-
-         return true;
-      }
-
-      return false;
-   }
+//   public boolean transformNotFull(Entity entity, EventScheduler scheduler, ImageStore imageStore) {
+//      if (entity.getResourceCount() >= entity.getResourceLimit()) {
+//         OctoFull octo = new OctoFull(entity.getId(), entity.getPosition(), entity.getImages(),
+//                 entity.getResourceLimit(), entity.getResourceLimit(), entity.getActionPeriod(), ((AnimationEntity)entity).getAnimationPeriod()); // two resource limits?
+//
+//         entity.removeEntity(this, entity);
+//         scheduler.unscheduleAllEvents(entity);
+//
+//         addEntity(octo);
+//         ((ActivityEntity)octo).scheduleActions(scheduler, this, imageStore);
+//
+//         return true;
+//      }
+//
+//      return false;
+//   }
    public static int distanceSquared(Point p1, Point p2) {
       int deltaX = p1.x - p2.x;
       int deltaY = p1.y - p2.y;

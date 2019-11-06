@@ -4,107 +4,32 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class OctoFull implements ActivityEntity, AnimationEntity{
-
-    private String id;
-    private Point position;
-    private List<PImage> images;
-    private int imageIndex;
-    private int resourceLimit;
-    private int resourceCount;
-    private int actionPeriod;
-    private int animationPeriod;
-
+public class OctoFull extends AnimationEntity{
 
     public OctoFull(String id, Point position,
                   List<PImage> images, int resourceLimit, int resourceCount,
-                  int actionPeriod, int animationPeriod)
-    {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
-        this.resourceLimit = resourceLimit;
-        this.resourceCount = resourceCount;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-    }
-    public int getAnimationPeriod() {
-        return this.animationPeriod;
-    }
+                  int actionPeriod) {
+        super(id, position, images, resourceLimit, actionPeriod, resourceCount, 0);
 
-    public int getActionPeriod() {
-        return actionPeriod;
-    }
-
-    public int getResourceCount() {
-        return resourceCount;
-    }
-
-    public void setResourceCount(int resourceCount) {
-        this.resourceCount = resourceCount;
-    }
-
-    public Point getPosition() {
-        return position;
-
-    }
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public List<PImage> getImages() { return images; }
-    public int getImageIndex() { return imageIndex; }
-    public int getResourceLimit() { return resourceLimit; }
-
-    public String getId() { return id; }
-
-    public void nextImage()
-    {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public PImage getCurrentImage()
-    {
-        return getImages().get(getImageIndex());
     }
 
     public Point nextPositionOcto(WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - this.position.x);
-        Point newPos = new Point(this.position.x + horiz,
-                this.position.y);
+        int horiz = Integer.signum(destPos.x - this.getPosition().x);
+        Point newPos = new Point(this.getPosition().x + horiz,
+                this.getPosition().y);
 
         if (horiz == 0 || world.isOccupied(newPos))
         {
-            int vert = Integer.signum(destPos.y - this.position.y);
-            newPos = new Point(this.position.x,
-                    this.position.y + vert);
+            int vert = Integer.signum(destPos.y - this.getPosition().y);
+            newPos = new Point(this.getPosition().x,
+                    this.getPosition().y + vert);
             if (vert == 0 || world.isOccupied(newPos))
             {
-                newPos = this.position;
+                newPos = this.getPosition();
             }
         }
         return newPos;
-    }
-    public void removeEntity(WorldModel world, Entity entity)
-    {
-        removeEntityAt(world, entity.getPosition());
-    }
-
-    public void removeEntityAt(WorldModel world, Point pos)
-    {
-        if (world.withinBounds(pos)
-                && world.getOccupancyCell(pos) != null)
-        {
-            Entity entity = world.getOccupancyCell(pos);
-
-         /* this moves the entity just outside of the grid for
-            debugging purposes */
-            this.position = new Point(-1, -1);
-            world.getEntities().remove(this);
-            world.setOccupancyCell( pos, null);
-        }
     }
     public void executeActivity(WorldModel world,
                                         ImageStore imageStore, EventScheduler scheduler)
@@ -118,7 +43,7 @@ public class OctoFull implements ActivityEntity, AnimationEntity{
             ((ActivityEntity)fullTarget.get()).scheduleActions(scheduler, world, imageStore);
 
             //transform to unfull
-            world.transformFull(this, scheduler, imageStore);
+            transformFull(world, scheduler, imageStore);
         }
         else
         {
@@ -127,6 +52,19 @@ public class OctoFull implements ActivityEntity, AnimationEntity{
                     this.getActionPeriod());
         }
     }
+
+    public void transformFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+        OctoNotFull octo = new OctoNotFull(this.getId(), this.getResourceLimit(),
+                this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(),
+                this.getImages());
+
+        this.removeEntity(world, this);
+        scheduler.unscheduleAllEvents(this);
+
+        world.addEntity(octo);
+        ((ActivityEntity)octo).scheduleActions(scheduler, world, imageStore);
+    }
+
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
         scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), getActionPeriod());
         scheduler.scheduleEvent(this, new AnimationAction(this, 0), (getAnimationPeriod()));
