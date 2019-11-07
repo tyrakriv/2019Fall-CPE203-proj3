@@ -102,7 +102,6 @@ public class Parse {
             Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
                     Integer.parseInt(properties[OCTO_ROW]));
             Entity entity = new OctoNotFull(properties[OCTO_ID],
-                    Integer.parseInt(properties[OCTO_LIMIT]),
                     pt,
                     Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
                     Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),

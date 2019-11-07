@@ -6,26 +6,12 @@ import java.util.Optional;
 
 public class OctoFull extends Octo{
 
-    private static int resourceLimit;
-    private static int resourceCount;
 
     public OctoFull(String id, Point position,
-                  List<PImage> images, int resourceLimit, int resourceCount,
+                  List<PImage> images,
                   int actionPeriod) {
         super(id, position, images, actionPeriod, 0);
-        this.resourceCount = resourceCount;
-        this.resourceLimit = resourceLimit;
 
-    }
-
-    public int getResourceLimit() { return resourceLimit; }
-
-    public int getResourceCount() {
-        return resourceCount;
-    }
-
-    public void setResourceCount(int resourceCount) {
-        this.resourceCount = resourceCount;
     }
 
     public void executeActivity(WorldModel world,
@@ -51,7 +37,7 @@ public class OctoFull extends Octo{
     }
 
     public Octo transformHelper(){
-        OctoNotFull octo = new OctoNotFull(this.getId(), this.getResourceLimit(),
+        OctoNotFull octo = new OctoNotFull(this.getId(),
                 this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(),
                 this.getImages());
         return octo;

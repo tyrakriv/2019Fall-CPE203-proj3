@@ -66,7 +66,7 @@ public final class VirtualWorld
       imageStore.loadImages(IMAGE_LIST_FILE_NAME, this);
       loadWorld(world, LOAD_FILE_NAME, imageStore);
 
-      scheduler.scheduleActions(world, imageStore);
+      scheduleActions(scheduler, imageStore);
 
       next_time = System.currentTimeMillis() + TIMER_ACTION_PERIOD;
    }
@@ -157,5 +157,15 @@ public final class VirtualWorld
    {
       parseCommandLine(args);
       PApplet.main(VirtualWorld.class);
+   }
+
+   public void scheduleActions(EventScheduler scheduler, ImageStore imageStore)
+   {
+      for (Entity entity : world.getEntities())
+      {
+         //Only start actions for entities that include action (not those with just animations)
+         if (entity instanceof ActivityEntity )//.getActionPeriod() > 0)
+            ((ActivityEntity)entity).scheduleActions(scheduler, world, imageStore);
+      }
    }
 }

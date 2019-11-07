@@ -69,16 +69,6 @@ final class EventScheduler
    }
 
 
-   public void scheduleActions(WorldModel world, ImageStore imageStore)
-   {
-      for (Entity entity : world.getEntities())
-      {
-         //Only start actions for entities that include action (not those with just animations)
-         if (entity instanceof ActivityEntity )//.getActionPeriod() > 0)
-            ((ActivityEntity)entity).scheduleActions(this, world, imageStore);
-      }
-   }
-
 
 
 

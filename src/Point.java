@@ -28,4 +28,10 @@ final class Point {
       return (this.x == other.x && Math.abs(this.y - other.y) == 1) ||
               (this.y == other.y && Math.abs(this.x - other.x) == 1);
    }
+   public static int distanceSquared(Point p1, Point p2) {
+      int deltaX = p1.x - p2.x;
+      int deltaY = p1.y - p2.y;
+
+      return deltaX * deltaX + deltaY * deltaY;
+   }
 }

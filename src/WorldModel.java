@@ -68,10 +68,10 @@ final class WorldModel {
          return Optional.empty();
       } else {
          Entity nearest = entities.get(0);
-         int nearestDistance = distanceSquared(nearest.getPosition(), pos);
+         int nearestDistance = Point.distanceSquared(nearest.getPosition(), pos);
 
          for (Entity other : entities) {
-            int otherDistance = distanceSquared(other.getPosition(), pos);
+            int otherDistance = Point.distanceSquared(other.getPosition(), pos);
 
             if (otherDistance < nearestDistance) {
                nearest = other;
@@ -152,26 +152,6 @@ final class WorldModel {
       }
    }
 
-   public boolean moveToCrab(Crab crab, Entity target, EventScheduler scheduler) {
-      if (crab.getPosition().adjacent(target.getPosition())) {
-         target.removeEntity(this, target);
-         scheduler.unscheduleAllEvents(target);
-         return true;
-      } else {
-         Point nextPos = crab.nextPosition(this, target.getPosition());
-
-         if (!crab.getPosition().equals(nextPos)) {
-            Optional<Entity> occupant = getOccupant(nextPos);
-            if (occupant.isPresent()) {
-               scheduler.unscheduleAllEvents(occupant.get());
-            }
-
-            moveEntity(crab, nextPos);
-         }
-         return false;
-      }
-   }
-
    public void tryAddEntity(Entity entity) {
       if (isOccupied(entity.getPosition())) {
          // arguably the wrong type of exception, but we are not
@@ -179,12 +159,5 @@ final class WorldModel {
          throw new IllegalArgumentException("position occupied");
       }
       addEntity(entity);
-   }
-
-   public static int distanceSquared(Point p1, Point p2) {
-      int deltaX = p1.x - p2.x;
-      int deltaY = p1.y - p2.y;
-
-      return deltaX * deltaX + deltaY * deltaY;
    }
 }

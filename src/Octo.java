@@ -3,6 +3,8 @@ import processing.core.PImage;
 import java.util.List;
 
 public abstract class Octo extends Moveable {
+    private static int resourceLimit;
+    private static int resourceCount;
 
     public Octo(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id, position, images, actionPeriod, animationPeriod);
@@ -41,4 +43,11 @@ public abstract class Octo extends Moveable {
 
     protected abstract Octo transformHelper();
 
+    public int getResourceLimit() { return resourceLimit; }
+    public void setResourceCount(int resourceCount) {
+        this.resourceCount = resourceCount;
+    }
+    public int getResourceCount() {
+        return resourceCount;
+    }
 }

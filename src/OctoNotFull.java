@@ -5,25 +5,12 @@ import java.util.Optional;
 
 public class OctoNotFull extends Octo {
 
-    private static int resourceLimit;
-    private static int resourceCount;
-
-    public OctoNotFull(String id, int resourceLimit,
+    public OctoNotFull(String id,
                     Point position, int actionPeriod, int animationPeriod, List<PImage> images)
     {
         super(id, position, images, actionPeriod, animationPeriod);
-        this.resourceLimit = resourceLimit;
     }
 
-    public int getResourceLimit() { return resourceLimit; }
-
-    public int getResourceCount() {
-        return resourceCount;
-    }
-
-    public void setResourceCount(int resourceCount) {
-        this.resourceCount = resourceCount;
-    }
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
     {
         Optional<Entity> notFullTarget = world.findNearest(this.getPosition(), Fish.class);
@@ -42,7 +29,7 @@ public class OctoNotFull extends Octo {
     public Octo transformHelper() {
         if (this.getResourceCount() >= this.getResourceLimit()) {
             OctoFull octo = new OctoFull(this.getId(), this.getPosition(), this.getImages(),
-                    this.getResourceLimit(), this.getResourceLimit(), this.getActionPeriod()); //((AnimationEntity)this).getAnimationPeriod()); // two resource limits?
+                    this.getActionPeriod()); //((AnimationEntity)this).getAnimationPeriod()); // two resource limits?
             return octo;
         }
         return null;

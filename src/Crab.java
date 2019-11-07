@@ -46,7 +46,7 @@ public class Crab extends Moveable{
         {
             Point tgtPos = crabTarget.get().getPosition();
 
-            if (world.moveToCrab(this, crabTarget.get(), scheduler))
+            if (moveTo(world, crabTarget.get(), scheduler))
             {
                 Entity quake = new Quake(tgtPos, imageStore.getImageList(QUAKE_KEY));
 
