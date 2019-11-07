@@ -28,7 +28,7 @@ public class Sgrass extends ActivityEntity{
                     openPt.get(), FISH_CORRUPT_MIN + rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
                     imageStore.getImageList(FISH_KEY));
             world.addEntity(fish);
-            ((ActivityEntity)fish).scheduleActions(scheduler, world, imageStore);
+            (fish).scheduleActions(scheduler, world, imageStore);
         }
 
         scheduler.scheduleEvent(this,

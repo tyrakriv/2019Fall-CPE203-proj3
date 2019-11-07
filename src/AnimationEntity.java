@@ -7,8 +7,6 @@ public abstract class AnimationEntity extends ActivityEntity{
     private final int animationPeriod;
     private int imageIndex;
 
-    //moveable entity (next position and move to) -- moveable extends animationentity * and octo entity (transform) -- octo extends move
-
     public AnimationEntity(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id, position, images, actionPeriod);
         this.animationPeriod = animationPeriod;

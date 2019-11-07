@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class Crab extends AnimationEntity{
+public class Crab extends Moveable{
 
     private static final String QUAKE_KEY = "quake";
 
@@ -13,7 +13,7 @@ public class Crab extends AnimationEntity{
         super(id, position, images, actionPeriod, animationPeriod);
     }
 
-    public Point nextPositionCrab(WorldModel world, Point destPos)
+    public Point nextPosition(WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.x - this.getPosition().x);
         Point newPos = new Point(this.getPosition().x + horiz,

@@ -15,7 +15,7 @@ public abstract class ActivityEntity extends Entity {
         return actionPeriod;
     }
 
-    public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
+    protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
         scheduler.scheduleEvent(this,
                 new ActivityAction(this, world, imageStore),

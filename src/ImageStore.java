@@ -14,11 +14,11 @@ final class ImageStore
    private Map<String, List<PImage>> images;
    private List<PImage> defaultImages;
 
-   private final int KEYED_IMAGE_MIN = 5;
-   private final int KEYED_RED_IDX = 2;
-   private final int KEYED_GREEN_IDX = 3;
-   private final int KEYED_BLUE_IDX = 4;
-   private final int COLOR_MASK = 0xffffff;
+   private static final int KEYED_IMAGE_MIN = 5;
+   private static final int KEYED_RED_IDX = 2;
+   private static final int KEYED_GREEN_IDX = 3;
+   private static final int KEYED_BLUE_IDX = 4;
+   private static final int COLOR_MASK = 0xffffff;
 
    public ImageStore(PImage defaultImage)
    {
@@ -103,88 +103,6 @@ final class ImageStore
          }
       }
    }
-
-//   private boolean parseOcto(String [] properties, WorldModel world)
-//   {
-//      if (properties.length == OCTO_NUM_PROPERTIES)
-//      {
-//         Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
-//                 Integer.parseInt(properties[OCTO_ROW]));
-//         Entity entity = new OctoNotFull(properties[OCTO_ID],
-//                 Integer.parseInt(properties[OCTO_LIMIT]),
-//                 pt,
-//                 Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
-//                 Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
-//                 getImageList(OCTO_KEY));
-//         world.tryAddEntity(entity);
-//      }
-//      return properties.length == OCTO_NUM_PROPERTIES;
-//   }
-//
-//   private boolean parseObstacle(String [] properties, WorldModel world)
-//   {
-//      if (properties.length == OBSTACLE_NUM_PROPERTIES)
-//      {
-//         Point pt = new Point(
-//                 Integer.parseInt(properties[OBSTACLE_COL]),
-//                 Integer.parseInt(properties[OBSTACLE_ROW]));
-//         Entity entity = new Obstacle(properties[OBSTACLE_ID],
-//                 pt, getImageList(OBSTACLE_KEY));
-//         world.tryAddEntity(entity);
-//      }
-//      return properties.length == OBSTACLE_NUM_PROPERTIES;
-//   }
-//
-//   private boolean parseFish(String [] properties, WorldModel world)
-//   {
-//      if (properties.length == FISH_NUM_PROPERTIES)
-//      {
-//         Point pt = new Point(Integer.parseInt(properties[FISH_COL]),
-//                 Integer.parseInt(properties[FISH_ROW]));
-//         Entity entity = new Fish(properties[FISH_ID], pt,
-//                 Integer.parseInt(properties[FISH_ACTION_PERIOD]),
-//                  getImageList(FISH_KEY));
-//         world.tryAddEntity(entity);
-//      }
-//      return properties.length == FISH_NUM_PROPERTIES;
-//   }
-//
-//   private boolean parseBackground(String [] properties, WorldModel world)
-//   {
-//      if (properties.length == BGND_NUM_PROPERTIES) {
-//         Point pt = new Point(Integer.parseInt(properties[BGND_COL]), Integer.parseInt(properties[BGND_ROW]));
-//         String id = properties[BGND_ID];
-//         world.setBackground(pt, new Background(id, getImageList(id)));
-//      }
-//      return properties.length == BGND_NUM_PROPERTIES;
-//   }
-//
-//   private boolean parseAtlantis(String [] properties, WorldModel world)
-//   {
-//      if (properties.length == ATLANTIS_NUM_PROPERTIES)
-//      {
-//         Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
-//                 Integer.parseInt(properties[ATLANTIS_ROW]));
-//         Entity entity = new Atlantis(properties[ATLANTIS_ID],
-//                 pt, getImageList(ATLANTIS_KEY));
-//         world.tryAddEntity(entity);
-//      }
-//      return properties.length == ATLANTIS_NUM_PROPERTIES;
-//   }
-//
-//   private boolean parseSgrass(String [] properties, WorldModel world)
-//   {
-//      if (properties.length == SGRASS_NUM_PROPERTIES)
-//      {
-//         Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
-//                 Integer.parseInt(properties[SGRASS_ROW]));
-//         Entity entity =  new Sgrass(properties[SGRASS_ID],
-//                 pt, getImageList(SGRASS_KEY),
-//                 Integer.parseInt(properties[SGRASS_ACTION_PERIOD]));
-//         world.tryAddEntity(entity);
-//      }
-//      return properties.length == SGRASS_NUM_PROPERTIES;
-//   }
    public void loadImages(String filename, PApplet screen)
    {
       try

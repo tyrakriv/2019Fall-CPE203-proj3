@@ -5,11 +5,11 @@ import java.util.Random;
 public class Fish extends ActivityEntity{
 
 
-    private final String CRAB_KEY = "crab";
-    private final String CRAB_ID_SUFFIX = " -- crab";
-    private final int CRAB_PERIOD_SCALE = 4;
-    private final int CRAB_ANIMATION_MIN = 50;
-    private final int CRAB_ANIMATION_MAX = 150;
+    private static final String CRAB_KEY = "crab";
+    private static final String CRAB_ID_SUFFIX = " -- crab";
+    private static final int CRAB_PERIOD_SCALE = 4;
+    private static final int CRAB_ANIMATION_MIN = 50;
+    private static final int CRAB_ANIMATION_MAX = 150;
     public static final Random rand = new Random();
 
     public Fish(String id, Point position, int actionPeriod, List<PImage> images) {
